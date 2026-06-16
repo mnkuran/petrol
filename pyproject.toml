@@ -1,0 +1,6 @@
+[project]
+name = "petrol"
+version = "0.0.1"
+dependencies = [
+    "protean>=0.15.0",
+]
