@@ -1,4 +1,5 @@
 [project]
+requires-python = "==3.14.*"
 name = "petrol"
 version = "0.0.1"
 dependencies = [
