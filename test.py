@@ -23,3 +23,9 @@ if __name__ == "__main__":
         print(f"Account count: {account_repo.query.all().total}")
         transaction_repo = current_domain.repository_for(Transaction)
         print(f"Transaction count: {transaction_repo.query.all().total}")
+
+        mahmut = account_repo.get(mahmut_id)
+        print(f"Mahmut (Balance: {mahmut.balance})")
+
+        shell = account_repo.get(shell_id)
+        print(f"Shell (Balance: {shell.balance})")
