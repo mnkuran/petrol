@@ -1,6 +1,7 @@
 import uuid
 
 from protean.utils.globals import current_domain
+from protean import Q
 
 from domain import domain
 from domain.account.models import Account
@@ -19,17 +20,12 @@ if __name__ == "__main__":
         current_domain.process(RegisterAccount(account_id=shell_id, name="Shell"))
 
         current_domain.process(RegisterTransaction(transaction_id=uuid.uuid4(), from_id=mahmut_id, to_id=shell_id, amount=50000))
+        current_domain.process(RegisterTransaction(transaction_id=uuid.uuid4(), from_id=shell_id, to_id=mahmut_id, amount=25000))
         
         account_repo = current_domain.repository_for(Account)
-        print(f"Account count: {account_repo.query.all().total}")
-        transaction_repo = current_domain.repository_for(Transaction)
-        print(f"Transaction count: {transaction_repo.query.all().total}")
-
-        mahmut = account_repo.get(mahmut_id)
-        print(f"Mahmut (Balance: {mahmut.balance})")
-
-        shell = account_repo.get(shell_id)
-        print(f"Shell (Balance: {shell.balance})")
-
         transactions_view = current_domain.view_for(AccountTransaction)
-        print(f"AccountTransaction count: {transactions_view.query.all().total}")
+
+        first_account = account_repo.query.first
+        print(f"{first_account.name}: {first_account.balance}")
+        for accont_transaction in transactions_view.query.filter(account_id=first_account.id).all():
+            print(f"{accont_transaction.account_name} => {accont_transaction.debit} | {accont_transaction.credit}")

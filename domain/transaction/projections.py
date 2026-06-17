@@ -1,11 +1,13 @@
-from protean.fields import Identifier, Float
+from protean.fields import Identifier, Float, Auto, String
 
 from .. import domain
 
 
 @domain.projection
 class AccountTransaction:
-    source_id: Identifier(identifier=True, required=True)
+    id: Auto(identifier=True, increment=True)
+    source_id: Identifier(required=True)
     account_id: Identifier(required=True)
+    account_name: String(required=True)
     debit: Float(required=True)
     credit: Float(required=True)
