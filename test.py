@@ -6,6 +6,7 @@ from domain import domain
 from domain.account.models import Account
 from domain.account.commands import RegisterAccount
 from domain.transaction.models import Transaction
+from domain.transaction.projections import AccountTransaction
 from domain.transaction.commands import RegisterTransaction
 
 
@@ -29,3 +30,6 @@ if __name__ == "__main__":
 
         shell = account_repo.get(shell_id)
         print(f"Shell (Balance: {shell.balance})")
+
+        transactions_view = current_domain.view_for(AccountTransaction)
+        print(f"AccountTransaction count: {transactions_view.query.all().total}")
