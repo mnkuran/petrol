@@ -10,5 +10,5 @@ from .models import Account
 class AccountCommandHandler:
     @handle(RegisterAccount)
     def register_account(self, command: RegisterAccount):
-        account = Account(id=command.account_id, name=command.name)
+        account = Account(id=command.account_id, name=command.name, balance=0)
         current_domain.repository_for(Account).add(account)
